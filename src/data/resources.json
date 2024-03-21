@@ -1,0 +1,65 @@
+{
+  "browsers": ["Safari", "Edge", "Google Chrome"],
+  "applications": [
+    {
+      "name": "Notion",
+      "key": "e",
+      "modifiers": ["command"]
+    },
+    {
+      "name": "Slack",
+      "key": "c",
+      "modifiers": ["command", "shift"]
+    }
+  ],
+  "websites": [
+    {
+      "name": "Asana",
+      "url": "https://app.asana.com/",
+      "key": "m",
+      "modifiers": ["command", "shift"]
+    },
+    {
+      "name": "Bitbucket",
+      "url": "https://bitbucket.org/",
+      "key": "m",
+      "modifiers": ["command", "shift"]
+    },
+    {
+      "name": "Confluence",
+      "url": ".atlassian.net/wiki",
+      "key": "m",
+      "modifiers": ["command", "shift"]
+    },
+    {
+      "name": "Github",
+      "url": "https://github.com/",
+      "key": "e",
+      "modifiers": ["command"]
+    },
+    {
+      "name": "Gitlab",
+      "url": "https://gitlab.com",
+      "key": "`",
+      "modifiers": []
+    },
+    {
+      "name": "Medium",
+      "url": "https://medium.com/",
+      "key": "`",
+      "modifiers": []
+    },
+    {
+      "name": "Notion",
+      "url": "https://www.notion.so/",
+      "key": "e",
+      "modifiers": ["command"]
+    },
+    {
+      "name": "Slack",
+      "url": "https://app.slack.com/",
+      "key": "c",
+      "modifiers": ["command", "shift"]
+    }
+  ]
+}
