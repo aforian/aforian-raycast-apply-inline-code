@@ -1,5 +1,6 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
+  "version": "0.1.0",
   "name": "apply-inline-code",
   "title": "Apply Inline Code",
   "description": "Apply inline code style in common apps and websites",
@@ -17,11 +18,18 @@
       "title": "Apply Inline Code",
       "description": "Apply inline code style in common apps and websites",
       "mode": "no-view"
+    },
+    {
+      "name": "inline-code-resource-list",
+      "title": "Inline Code Resource List",
+      "description": "show a list of resources for inline code style",
+      "mode": "view"
     }
   ],
   "dependencies": {
     "@raycast/api": "^1.69.0",
-    "@raycast/utils": "^1.13.3"
+    "@raycast/utils": "^1.13.3",
+    "nanoid": "^5.0.6"
   },
   "devDependencies": {
     "@raycast/eslint-config": "^1.0.6",

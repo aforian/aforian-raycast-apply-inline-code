@@ -1,9 +1,10 @@
-import { Key, Modifier } from "./key";
+import { Key, Modifier } from './key';
 
 export interface Website {
   id: string;
-  title: string;
+  name: string;
   url: string;
-  modifiers: Modifier[];
+  matchPattern: string;
   key: Key;
+  modifiers: Modifier[];
 }

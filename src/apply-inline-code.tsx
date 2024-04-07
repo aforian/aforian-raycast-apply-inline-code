@@ -1,54 +1,30 @@
-import { showHUD, getFrontmostApplication } from "@raycast/api";
-import { runAppleScript } from "@raycast/utils";
-import { keydownAction } from "./utils/keydownAction";
-import resources from "./data/resources.json";
-import { Key, Modifier } from "./types/key";
+import { showHUD, getFrontmostApplication, closeMainWindow } from '@raycast/api';
+import { keydownAction } from './utils/keydownAction';
+import resources from './data/resources.json';
+import { Key, Modifier } from './types/key';
+import { getResources } from './services/resource';
+import { getActiveTabUrl } from './utils/getActiveTabUrl';
 
-const { browsers, applications, websites } = resources;
+const { browsers } = resources;
 
-async function getActiveTabUrl(browser: string) {
-  const script =
-    browser === "Safari"
-      ? `
-    tell application "Safari"
-      if it is running then
-        get URL of front document
-      end if
-    end tell
-  `
-      : `
-    tell application "${browser}"
-      if it is running then
-        get URL of active tab of front window
-      end if
-    end tell
-  `;
-  try {
-    const url = await runAppleScript(script);
-    return url;
-  } catch (error) {
-    showHUD("Get active tab URL failed.");
-    return null;
-  }
-}
-
-function applyToWebsite(url: string | null | undefined, runKeydown: ReturnType<typeof keydownAction>) {
+async function applyToWebsite(url: URL | null, runKeydown: ReturnType<typeof keydownAction>) {
   if (!url) {
-    return showHUD("Active tab not found.");
+    return showHUD('Active tab not found.');
   }
 
-  const urlObject = new URL(url ?? "");
+  const resources = await getResources();
 
-  for (const website of websites) {
-    if (urlObject.href.includes(website.url)) {
-      return runKeydown(website.key as Key, website.modifiers as Modifier[]);
+  for (const resource of resources) {
+    if (resource.type === 'website' && url.href.includes(resource.matchPattern)) {
+      await closeMainWindow();
+      return runKeydown(resource.key as Key, resource.modifiers as Modifier[]);
     }
   }
 
-  return showHUD("Invalid command for this website");
+  return showHUD('Invalid command for this website');
 }
 
-export default async function applyCodeStyle() {
+export default async function applyInlineCode() {
   const frontmostApplication = await getFrontmostApplication();
   const { name: appName } = frontmostApplication;
 
@@ -60,11 +36,14 @@ export default async function applyCodeStyle() {
     return applyToWebsite(url, runKeydown);
   }
 
-  for (const application of applications) {
-    if (appName === application.name) {
-      return runKeydown(application.key as Key, application.modifiers as Modifier[]);
+  const resources = await getResources();
+
+  for (const resource of resources) {
+    if (resource.type === 'application' && appName === resource.name) {
+      await closeMainWindow();
+      return runKeydown(resource.key as Key, resource.modifiers as Modifier[]);
     }
   }
 
-  return showHUD("Invalid command for this application");
+  return showHUD('Invalid command for this application');
 }
