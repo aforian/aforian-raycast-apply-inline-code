@@ -18,7 +18,6 @@ const ApplicationForm = ({ defaultValues, applicationOptions }: ApplicationFormP
     if (applicationOptions.length === 0) return;
 
     const newPath = applicationOptions.find(app => app.name === name)?.path;
-    console.log('applicationOptions', applicationOptions);
 
     if (newPath && newPath !== innerPath) {
       setInnerPath(newPath);
