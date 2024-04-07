@@ -6,13 +6,8 @@ import { useEffect, useState } from 'react';
 import WebsiteForm from './WebsiteForm';
 import ApplicationForm from './ApplicationForm';
 
-interface FormValues extends Omit<Resource, 'id'> {
-  id?: string;
-  path?: string;
-}
-
 interface ResourceFormProps {
-  handleSubmit: (values: FormValues) => void;
+  handleSubmit: (values: Resource) => void;
   defaultValues?: Partial<Resource>;
 }
 
@@ -50,14 +45,14 @@ const ResourceForm = ({ handleSubmit, defaultValues }: ResourceFormProps) => {
                 ...formValues,
                 path: getPath(formValues.name),
                 id: defaultValues?.id,
-              } as FormValues);
+              } as Resource);
             }}
           />
         </ActionPanel>
       }
     >
       {id && type ? (
-        <Form.Description title="Resource Type" text={defaultValues.type} />
+        <Form.Description title="Resource Type" text={type} />
       ) : (
         <Form.Dropdown
           id="type"
